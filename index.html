@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Portfolio</title>
+		<style>
+			body {
+				margin: 0;
+			}
+
+			ul {
+				position: absolute;
+				top: 10px;
+				left: 50px;
+				width: 100%;
+				text-align: left;
+				z-index: 100;
+				display: block;
+				list-style: none;
+			}
+		</style>
+	</head>
+	<body oncontextmenu="return false;">
+		<div id="scene-container"></div>
+		<ul id="logs"></ul>
+
+		<script>
+			function logs(id, text) {
+				const li = document.getElementById(id) || document.createElement('li');
+				li.setAttribute('id', id);
+
+				li.innerHTML = text;
+				document.getElementById('logs').appendChild(li);
+			}
+		</script>
+
+		<script type="module" src="js/main.js"></script>
+	</body>
+</html>
