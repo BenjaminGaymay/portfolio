@@ -15,6 +15,8 @@ class Loop {
 	}
 
 	start() {
+		console.log('start');
+
 		this.renderer.setAnimationLoop(() => {
 			this.tick();
 			this.renderer.render(this.scene, this.camera);
@@ -23,7 +25,15 @@ class Loop {
 		});
 	}
 
+	pause() {
+		document.title = 'PAUSE - Portfolio';
+
+		this.controls.events.clear();
+		console.log(this.controls.events);
+	}
+
 	stop() {
+		this.controls.events.clear();
 		this.renderer.setAnimationLoop(null);
 	}
 
@@ -84,6 +94,7 @@ class Loop {
 	}
 
 	handleEvents(delta) {
+		if (delta > 0.1) logs('delta', 'delta: ' + delta);
 		for (const name of this.controls.events) {
 			const event = JSON.parse(name);
 

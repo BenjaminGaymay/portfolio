@@ -15,6 +15,9 @@ async function main() {
 
 	world.render();
 	world.start();
+
+	window.onblur = () => world.pause();
+	document.addEventListener('visibilitychange', () => (document.hidden ? world.pause() : undefined));
 }
 
 window.onload = main;

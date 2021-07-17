@@ -28,7 +28,7 @@ export class Controls {
 
 	keyDown(event) {
 		event.preventDefault;
-		console.log(event.keyCode);
+		// console.log(event.keyCode);
 		if (this.mapping[this.state][event.keyCode])
 			this.events.add(JSON.stringify({ name: this.mapping[this.state][event.keyCode] }));
 	}

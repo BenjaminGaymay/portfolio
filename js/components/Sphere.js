@@ -77,8 +77,8 @@ export class Star extends UpdatableEntity {
 
 		this.rotationSpeed = Math.random() * speed + 0.1;
 
-		const helper = new Box3Helper(new Box3().setFromObject(this.group), color);
-		this.group.add(helper);
+		// const helper = new Box3Helper(new Box3().setFromObject(this.group), color);
+		// this.group.add(helper);
 	}
 
 	calcPosition() {
