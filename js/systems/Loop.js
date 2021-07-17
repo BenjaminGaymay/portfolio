@@ -12,6 +12,7 @@ class Loop {
 		this.updatables = [];
 
 		this.world = world;
+		this.pause = true;
 	}
 
 	start() {
