@@ -2,6 +2,7 @@ import { UpdatableEntity } from './UpdatableEntity.js';
 import { loadModel } from '../systems/models.js';
 
 import { Group, DirectionalLight, Box3Helper, Box3, BoxHelper } from '../lib/build/three.module.js';
+import { Star } from './Sphere.js';
 
 const mode = 'Star wars';
 
@@ -81,7 +82,7 @@ export class Player extends UpdatableEntity {
 	// }
 
 	hit(damages, entity) {
-		if (!this.boost || entity === 'Star') super.hit(damages);
+		if (!this.boost || entity instanceof Star) super.hit(damages);
 	}
 
 	lookBehind() {}
@@ -173,12 +174,9 @@ export class Player extends UpdatableEntity {
 			// ajouter du son
 			// ajouter l'hyper espace
 			// faire des fct pour les animations
-			// balles spéciales
 			// des monstres
-			// monstres qui suivent ? y a une fct pour calculer la distance entre 2 vecteur
 			// ajouter du decors, asteroides ? planete ?
 			// systeme de stage
-			// liens vers pour le portfolio :)))))
 			// mettre events en global ? (comme logs)
 			// pouvoir casser les etoiles/planete, easter egg ?
 			this.model.rotation.x += this.model.rotation.x > 0 ? 0.07 : -0.07;

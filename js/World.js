@@ -133,6 +133,10 @@ export class World {
 		loop.start();
 	}
 
+	restart() {
+		loop.restart();
+	}
+
 	pause() {
 		loop.pause();
 	}

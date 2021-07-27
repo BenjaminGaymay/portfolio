@@ -87,9 +87,15 @@ export class LinkPortal extends Portal {
 
 		this.url = url;
 		this.collision = ['Player'];
+
+		this.previousHit = Date.now();
+		this.hitInterval = 2000;
 	}
 
 	hit() {
+		if (Date.now() - this.previousHit < this.hitInterval) return;
+
 		window.open(this.url, '_blank');
+		this.previousHit = Date.now();
 	}
 }

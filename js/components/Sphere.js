@@ -6,7 +6,6 @@ import {
 	PointLight,
 	Box3,
 	Box3Helper,
-	Sphere,
 	BoxHelper,
 	RingGeometry,
 	DoubleSide,
@@ -17,23 +16,25 @@ import {
 
 import { UpdatableEntity } from './UpdatableEntity.js';
 
-export class Star extends UpdatableEntity {
-	constructor({ x, y, z }, size = 10, color = 0xffffff, intensity = 1, speed = 0.05) {
+export class Sphere extends UpdatableEntity {
+	constructor() {
 		super();
-		this.collision = ['Player', 'MBullet', 'LinearBullet'];
 
 		this.life = undefined;
 		this.damages = 99999;
+	}
+}
+
+export class Star extends Sphere {
+	constructor({ x, y, z }, size = 10, color = 0xffffff, intensity = 1, speed = 0.05) {
+		super();
+		this.collision = ['Player', 'MBullet', 'LinearBullet'];
 
 		this.defaultPos = {
 			x,
 			y,
 			z
 		};
-
-		// this.group.position.x = x;
-		// this.group.position.y = y;
-		// this.group.position.z = z;
 
 		this.rotation = 0;
 		this.speed = speed;
@@ -76,6 +77,7 @@ export class Star extends UpdatableEntity {
 		this.calcPosition();
 
 		this.rotationSpeed = Math.random() * speed + 0.1;
+		this.size = size;
 
 		// const helper = new Box3Helper(new Box3().setFromObject(this.group), color);
 		// this.group.add(helper);
@@ -92,7 +94,6 @@ export class Star extends UpdatableEntity {
 	tick(delta) {
 		this.rotation += this.speed * delta;
 		this.calcPosition();
-
 		this.group.rotation.y += this.rotationSpeed * delta;
 	}
 }

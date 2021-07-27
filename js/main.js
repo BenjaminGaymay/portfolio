@@ -17,7 +17,8 @@ async function main() {
 	world.start();
 
 	window.onblur = () => world.pause();
-	document.addEventListener('visibilitychange', () => (document.hidden ? world.pause() : undefined));
+	window.onfocus = () => world.restart();
+	document.addEventListener('visibilitychange', () => (document.hidden ? world.pause() : world.restart()));
 }
 
 window.onload = main;

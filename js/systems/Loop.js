@@ -1,4 +1,14 @@
-import { Clock, Box3, Box3Helper } from '../lib/build/three.module.js';
+import { Player } from '../components/Player.js';
+import { RingPlanet, Sphere } from '../components/Sphere.js';
+import {
+	Clock,
+	Box3,
+	Box3Helper,
+	MeshBasicMaterial,
+	SphereGeometry,
+	Mesh,
+	Vector3
+} from '../lib/build/three.module.js';
 
 const clock = new Clock();
 
@@ -12,12 +22,10 @@ class Loop {
 		this.updatables = [];
 
 		this.world = world;
-		this.pause = true;
+		this.paused = false;
 	}
 
 	start() {
-		console.log('start');
-
 		this.renderer.setAnimationLoop(() => {
 			this.tick();
 			this.renderer.render(this.scene, this.camera);
@@ -26,11 +34,16 @@ class Loop {
 		});
 	}
 
+	restart() {
+		document.title = 'Portfolio';
+
+		// setInterval(() => (this.paused = false), 1000);
+	}
+
 	pause() {
 		document.title = 'PAUSE - Portfolio';
-
+		this.paused = true;
 		this.controls.events.clear();
-		console.log(this.controls.events);
 	}
 
 	stop() {
@@ -40,6 +53,8 @@ class Loop {
 
 	tick() {
 		const delta = clock.getDelta();
+
+		if (delta > 0.5) return;
 
 		this.handleEvents(delta);
 
@@ -66,30 +81,27 @@ class Loop {
 	checkCollision(entity) {
 		for (const object of this.updatables) {
 			if (object && object.constructor && entity.hitEntity && entity.hitEntity(object.constructor.name)) {
-				const entityBox = new Box3().setFromObject(entity.group);
+				let entityBox;
 				const objectBox = new Box3().setFromObject(object.group);
 
+				if (entity instanceof Sphere) {
+					const collisionDot = entity.group.position
+						.clone()
+						.add(
+							object.group.position
+								.clone()
+								.sub(entity.group.position)
+								.normalize()
+								.multiplyScalar(entity.size)
+						);
+
+					entityBox = new Box3().setFromCenterAndSize(collisionDot, new Vector3(1, 1, 1));
+				} else entityBox = new Box3().setFromObject(entity.group);
+
 				if (entityBox != objectBox && entityBox.intersectsBox(objectBox)) {
-					object.hit(entity.damages, entity.constructor.name);
-					entity.hit(object.damages, object.constructor.name);
+					object.hit(entity.damages, entity);
+					entity.hit(object.damages, object);
 				}
-
-				// if (entity.group.geometry) {
-				//   console.log('aaa')
-				//   for (let vertexIndex = 0; vertexIndex < entity.group.geometry.vertices.length; vertexIndex++) {
-				//     var localVertex = entity.group.geometry.vertices[vertexIndex].clone();
-				//     var globalVertex = entity.group.matrix.multiplyVector3(localVertex);
-				//     var directionVector = globalVertex.subSelf(entity.group.position);
-
-				//     var ray = new THREE.Ray(entity.group.position, directionVector.clone().normalize());
-				//     var collisionResults = ray.intersectObjects([object.group]);
-				//     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-				//       console.log('HIT nouveau')
-
-				//       // a collision occurred... do something...
-				//     }
-				//   }
-				// }
 			}
 		}
 	}
