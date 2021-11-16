@@ -1,7 +1,7 @@
 const shaders = {
-	waves: {
-		fragmentPath: '/assets/shaders/waves/fragment.glsl',
-		vertexPath: '/assets/shaders/waves/vertex.glsl',
+	star: {
+		fragmentPath: '/assets/shaders/star/fragment.glsl',
+		vertexPath: '/assets/shaders/star/vertex.glsl',
 		object: null
 	}
 };
@@ -22,7 +22,7 @@ export async function loadShaders() {
 							fetch(shaders[e].vertexPath)
 						]);
 						const text = await Promise.all([response[0].text(), response[1].text()]);
-						shaders[e].object = { fragment: text[0], vertex: text[1] };
+						shaders[e].object = { fragmentShader: text[0], vertexShader: text[1] };
 						resolve();
 					}
 				})

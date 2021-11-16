@@ -47,42 +47,42 @@ export class World {
 		loop.updatables.push(background);
 		scene.add(background.group);
 
-		let portal = new LinkPortal(new Vector3(-350, 0, 1700), 'https://github.com/BenjaminGaymay', 'github');
-		loop.updatables.push(portal);
-		scene.add(portal.group);
+		// let portal = new LinkPortal(new Vector3(-350, 0, 1700), 'https://github.com/BenjaminGaymay', 'github');
+		// loop.updatables.push(portal);
+		// scene.add(portal.group);
 
-		portal = new LinkPortal(new Vector3(-400, 0, 1700), 'https://www.instagram.com/benjamin.gaymay/', 'instagram');
-		loop.updatables.push(portal);
-		scene.add(portal.group);
+		// portal = new LinkPortal(new Vector3(-400, 0, 1700), 'https://www.instagram.com/benjamin.gaymay/', 'instagram');
+		// loop.updatables.push(portal);
+		// scene.add(portal.group);
 
-		portal = new LinkPortal(
-			new Vector3(-450, 0, 1700),
-			'https://www.linkedin.com/in/benjamin-gaymay-16124a171/',
-			'linkedin'
-		);
-		loop.updatables.push(portal);
-		scene.add(portal.group);
+		// portal = new LinkPortal(
+		// 	new Vector3(-450, 0, 1700),
+		// 	'https://www.linkedin.com/in/benjamin-gaymay-16124a171/',
+		// 	'linkedin'
+		// );
+		// loop.updatables.push(portal);
+		// scene.add(portal.group);
 
-		portal = new LinkPortal(new Vector3(-500, 0, 1700), 'https://www.malt.fr/profile/benjamingaymay', 'malt');
-		loop.updatables.push(portal);
-		scene.add(portal.group);
+		// portal = new LinkPortal(new Vector3(-500, 0, 1700), 'https://www.malt.fr/profile/benjamingaymay', 'malt');
+		// loop.updatables.push(portal);
+		// scene.add(portal.group);
 
-		portal = new LinkPortal(new Vector3(-550, 0, 1700), 'https://benjamin-gaymay.eu/musiques/', 'musiques');
-		loop.updatables.push(portal);
-		scene.add(portal.group);
+		// portal = new LinkPortal(new Vector3(-550, 0, 1700), 'https://benjamin-gaymay.eu/musiques/', 'musiques');
+		// loop.updatables.push(portal);
+		// scene.add(portal.group);
 
-		portal = new LinkPortal(new Vector3(-600, 0, 1700), 'https://benjamin-gaymay.eu/quorridor', 'quorridor');
-		loop.updatables.push(portal);
-		scene.add(portal.group);
+		// portal = new LinkPortal(new Vector3(-600, 0, 1700), 'https://benjamin-gaymay.eu/quorridor', 'quorridor');
+		// loop.updatables.push(portal);
+		// scene.add(portal.group);
 
-		// const light = new AmbientLight(0xffffff, 1); // soft white light
-		// scene.add(light);
+		const light = new AmbientLight(0xffffff, 1); // soft white light
+		scene.add(light);
 
-		// const moon = new Star(new Vector3(50, 10, -150), 10, 0xdddddd);
-		// loop.updatables.push(moon);
-		// scene.add(moon.group);
+		const moon = new Star(new Vector3(50, 10, -150), 10, 0xdddddd);
+		loop.updatables.push(moon);
+		scene.add(moon.group);
 
-		const sun = new Star(new Vector3(0, 0, 0), 300, 0xffff66);
+		const sun = new Star(new Vector3(0, 0, 0), 300, 0x995000);
 		loop.updatables.push(sun);
 		scene.add(sun.group);
 

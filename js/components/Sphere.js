@@ -11,9 +11,12 @@ import {
 	DoubleSide,
 	MeshStandardMaterial,
 	Vector3,
-	Matrix4
+	Matrix4,
+	ShaderMaterial,
+	Color
 } from '../lib/build/three.module.js';
 
+import { loadShader } from '../systems/shaders.js';
 import { UpdatableEntity } from './UpdatableEntity.js';
 
 export class Sphere extends UpdatableEntity {
@@ -26,7 +29,7 @@ export class Sphere extends UpdatableEntity {
 }
 
 export class Star extends Sphere {
-	constructor({ x, y, z }, size = 10, color = 0xffffff, intensity = 1, speed = 0.05) {
+	constructor({ x, y, z }, size = 10, color = 0xffffff, intensity = 1, speed = 0.005) {
 		super();
 		this.collision = ['Player', 'MBullet', 'LinearBullet'];
 
@@ -60,12 +63,21 @@ export class Star extends Sphere {
 		const pointLight6 = new PointLight(color, intensity, distance, decay);
 		pointLight6.position.set(0, 0, size);
 
-		this.group.add(
-			new Mesh(
-				new SphereGeometry(size, 64, 64),
-				new MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.7 })
-			)
-		);
+		const { vertexShader, fragmentShader } = loadShader('star');
+
+		this.material = new ShaderMaterial({
+			vertexShader,
+			fragmentShader,
+			side: DoubleSide,
+			uniforms: {
+				color: { type: 'vec3', value: new Color(color) },
+				time: { value: Math.random() }
+			}
+			// wireframe: true,
+		});
+
+		this.group.add(new Mesh(new SphereGeometry(size, 64, 64), this.material));
+		// new MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.7 })
 
 		this.group.add(pointLight1);
 		this.group.add(pointLight2);
@@ -76,7 +88,7 @@ export class Star extends Sphere {
 
 		this.calcPosition();
 
-		this.rotationSpeed = Math.random() * speed + 0.1;
+		this.rotationSpeed = Math.random() * speed + 0.005;
 		this.size = size;
 
 		// const helper = new Box3Helper(new Box3().setFromObject(this.group), color);
@@ -95,12 +107,22 @@ export class Star extends Sphere {
 		this.rotation += this.speed * delta;
 		this.calcPosition();
 		this.group.rotation.y += this.rotationSpeed * delta;
+
+		this.material.uniforms.time.value += delta;
 	}
 }
 
 export class Planet extends Star {
 	constructor({ x, y, z }, size, color, speed) {
 		super({ x, y, z }, size, color, 0.5, speed);
+	}
+
+	tick(delta) {
+		this.rotation += this.speed * delta;
+		this.calcPosition();
+		this.group.rotation.y += this.rotationSpeed * delta;
+
+		// this.material.uniforms.time.value += delta;
 	}
 }
 
