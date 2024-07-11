@@ -1,0 +1,15 @@
+:root {
+	--primary: 140, 207, 252; // rgb(140, 207, 252)
+	--secondary: 25, 27, 31; // rgb(25, 27, 31);
+	--accent: 255, 0, 255; // rgb(255, 0, 255)
+
+	// --primary: 0, 34, 56; // rgb(0, 34, 56)
+	// --secondary: 224, 224, 224; // rgb(224, 224, 224)
+	// --accent: 86, 187, 255; // rgb(86, 187, 255)
+}
+
+main {
+	height: 100dvh;
+	width: 100dvw;
+	background-color: rgb(var(--secondary));
+}
